@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <title>Humidity Reports</title>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>📡 Humidity Logging System</h2>
+      <ul id="nav">
+        <li id="dashboardPage">Dashboard</li>
+        <li id="reportPage" class="active">Reports</li>
+        <!-- <li data-view="settings">Settings</li>
+        <li data-view="logout">Logout</li> -->
+      </ul>
+    </aside>
+    <!-- REPORTS -->
+    <section id="view-reports">
+      <div class="card">
+        <h2>Generate Report</h2>
+        <form id="reportForm" class="filter-grid">
+          <label>
+            Device
+            <select id="deviceSelect" required>
+              <!-- Hardcode devices for now -->
+              <option value="" selected>Select The Datalogger</option>
+              <option value="DL-01">DL-001 (Lab)</option>
+              <option value="DL-02">DL-002 (Server Room)</option>
+              <option value="DL-03">DL-003 (Store)</option>
+            </select>
+          </label>
+          <label>
+            From (date)
+            <input type="date" id="fromDate" required />
+          </label>
+          <label>
+            From (time)
+            <input type="time" id="fromTime" value="00:00" required />
+          </label>
+          <label>
+            To (date)
+            <input type="date" id="toDate" required />
+          </label>
+          <label>
+            To (time)
+            <input type="time" id="toTime" value="23:59" required />
+          </label>
+          <div class="filter-actions">
+            <button type="submit" class="btn primary">Generate</button>
+            <button type="button" id="btnReset" class="btn">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Printable Report (captured by html2canvas) -->
+      <div id="reportCanvas" class="report card">
+        <div class="report-header">
+          <div>
+            <h3>IoT Logger Report</h3>
+            <p id="reportMeta">Device: — | Range: —</p>
+          </div>
+          <div>
+            <button type="button" id="btnDownloadPDF" class="btn primary">
+              Download PDF
+            </button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="kpi-title">Avg Temp (°C)</div>
+            <div id="kpiAvgT" class="kpi-value">—</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">Min Temp (°C)</div>
+            <div id="kpiMinT" class="kpi-value">—</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">Max Temp (°C)</div>
+            <div id="kpiMaxT" class="kpi-value">—</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">Avg Humidity (%)</div>
+            <div id="kpiAvgH" class="kpi-value">—</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">Min Humidity (%)</div>
+            <div id="kpiMinH" class="kpi-value">—</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-title">Max Humidity (%)</div>
+            <div id="kpiMaxH" class="kpi-value">—</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="reportChart"></canvas>
+        </div>
+
+        <div class="table-wrap">
+          <table id="reportTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Timestamp</th>
+                <th>Temperature (°C)</th>
+                <th>Humidity (%)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="report-footer">
+          <small>Generated on <span id="generatedOn"></span></small>
+        </div>
+      </div>
+    </section>
+    <script src="../scripts/repotrs.js"></script>
+  </body>
+</html>
