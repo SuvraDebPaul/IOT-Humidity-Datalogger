@@ -257,6 +257,35 @@ body {
   color: #666;
 }
 
+.setting-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 1rem;
+  margin: 1rem;
+}
+.setting-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 1rem;
+  color: #333;
+}
+.setting-grid input,
+.setting-grid select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #dfe3ea;
+  background: #fff;
+  outline: none;
+  font-size: 1rem;
+  color: #333;
+  background-color: #4a3aff16;
+  width: 300px;
+}
+.setting-grid select {
+  background-color: #4a3aff16;
+}
 /* Small screens */
 @media (max-width: 980px) {
   .filter-grid {

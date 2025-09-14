@@ -4,7 +4,9 @@ document.getElementById("reportPage").addEventListener("click", () => {
 document.getElementById("dashboardPage").addEventListener("click", () => {
   window.location.href = "../index.html";
 });
-
+document.getElementById("settingsPage").addEventListener("click", () => {
+  window.location.href = "settings.html";
+});
 const AUTH_TOKEN = "DL_Sirc_123321";
 
 // Device-specific API URLs
