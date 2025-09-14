@@ -8,38 +8,45 @@ body {
   background: #f5f6fa;
   display: flex;
   color: #222;
+  max-width: 94vw;
+  margin: 0 auto;
 }
 .hidden {
   display: none;
 }
-
-.sidebar {
-  width: 220px;
+#nav{
+  margin-right: 1rem;
+}
+.topbar {
   background: #fff;
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.08);
-  height: 100vh;
-  padding: 1rem;
-  position: sticky;
-  top: 0;
+  padding: .5rem;
+  border-radius: 12px;
 }
-.sidebar h2 {
-  margin: 0 0 1rem;
+.topbar h2 {
+  margin-left: 1rem;
   text-align: center;
   color: #4a3aff;
+  text-transform: uppercase;
 }
-.sidebar ul {
+.topbar ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  gap: 1rem;
 }
-.sidebar ul li {
+.topbar ul li {
   padding: 0.9rem 1rem;
   margin: 0.35rem 0;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out ;
+  text-transform: uppercase;
+  border: 1px solid #4a3aff16;
 }
-.sidebar ul li.active,
-.sidebar ul li:hover {
+.topbar ul li.active,
+.topbar ul li:hover {
   background: #4a3aff;
   color: #fff;
 }
@@ -116,7 +123,7 @@ body {
   margin-bottom: 20px;
 }
 #view-reports {
-  max-width: 83%;
+  max-width: 94vw;
   margin: 0 auto;
 }
 .filter-grid {
