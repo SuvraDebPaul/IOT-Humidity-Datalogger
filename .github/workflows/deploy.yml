@@ -1,16 +1,13 @@
 name: Deploy Client to GitHub Pages
-
 on:
   push:
     branches:
       - main
     paths:
       - "client/**"
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
