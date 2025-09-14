@@ -41,12 +41,13 @@ function fetchLiveDataDL(apiUrl, tempElement, humiElement) {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       const temperature = data.temperature || "--";
       const humidity = data.humidity || "--";
       tempElement.textContent = temperature;
       humiElement.textContent = humidity;
     })
-    .catch((err) => console.error("Fetch error:", err));
+    .catch((err) => console.log("Fetch error:", err));
 }
 
 // Initial + periodic fetch for Live Data
