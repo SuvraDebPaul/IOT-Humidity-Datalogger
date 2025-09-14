@@ -4,6 +4,9 @@ document.getElementById("reportPage").addEventListener("click", () => {
 document.getElementById("dashboardPage").addEventListener("click", () => {
   window.location.href = "index.html";
 });
+document.getElementById("settingsPage").addEventListener("click", () => {
+  window.location.href = "pages/settings.html";
+});
 
 // API Declaration
 const API_URL_LIVE_DL1 =
