@@ -29,14 +29,14 @@ body {
   color: #4a3aff;
   text-transform: uppercase;
 }
-.nav {
+#nav {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   gap: 1rem;
 }
-.nav li {
+#nav li {
   padding: 0.9rem 1rem;
   margin: 0.35rem 0;
   border-radius: 8px;
@@ -46,8 +46,8 @@ body {
   border: 1px solid #4a3aff16;
   font-weight: 400;
 }
-.nav li.active,
-.nav li:hover {
+#nav li.active,
+#nav li:hover {
   background: #4a3aff;
   color: #fff;
 }
