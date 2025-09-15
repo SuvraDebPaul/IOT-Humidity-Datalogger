@@ -11,8 +11,8 @@ const configSchema = new mongoose.Schema(
     },
     loggingInterval: {
       type: Number,
-      default: 60, // default interval in seconds
-      min: 60,      // minimum value allowed
+      default: 60000, // default interval in milliseconds
+      min: 60000, // minimum value allowed in milliseconds means 1 minute
     },
     // You can add more configuration options here later
     // example:
