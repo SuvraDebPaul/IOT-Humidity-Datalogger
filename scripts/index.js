@@ -56,12 +56,12 @@ function fetchLiveDataDL(apiUrl, tempElement, humiElement) {
 // Initial + periodic fetch for Live Data
 function updateAllLive() {
   fetchLiveDataDL(API_URL_LIVE_DL1, liveTemp1, liveHumi1);
-  fetchLiveDataDL(API_URL_LIVE_DL1, liveTemp2, liveHumi2);
-  fetchLiveDataDL(API_URL_LIVE_DL1, liveTemp3, liveHumi3);
+  fetchLiveDataDL(API_URL_LIVE_DL2, liveTemp2, liveHumi2);
+  fetchLiveDataDL(API_URL_LIVE_DL3, liveTemp3, liveHumi3);
 }
 
 updateAllLive();
-setInterval(updateAllLive, 2000);
+setInterval(updateAllLive, 5000);
 
 // End of Live Data Fetching
 
@@ -163,15 +163,15 @@ function fetchLogDataDL(apiUrl, targetArray) {
 // Initial + periodic fetch
 function updateAllLogs() {
   fetchLogDataDL(API_URL_LOG_DL1, humiData_DL1);
-  fetchLogDataDL(API_URL_LOG_DL1, humiData_DL2);
-  fetchLogDataDL(API_URL_LOG_DL1, humiData_DL3);
+  fetchLogDataDL(API_URL_LOG_DL2, humiData_DL2);
+  fetchLogDataDL(API_URL_LOG_DL3, humiData_DL3);
   fetchLogDataDL(API_URL_LOG_DL1, tempData_DL1);
-  fetchLogDataDL(API_URL_LOG_DL1, tempData_DL2);
-  fetchLogDataDL(API_URL_LOG_DL1, tempData_DL3);
+  fetchLogDataDL(API_URL_LOG_DL2, tempData_DL2);
+  fetchLogDataDL(API_URL_LOG_DL3, tempData_DL3);
 }
 
 updateAllLogs();
-setInterval(updateAllLogs, 3000);
+setInterval(updateAllLogs, 60000);
 
 // Function to create gradient for each dataset
 function createGradient(ctx, color) {
@@ -298,7 +298,7 @@ const humiChart = new Chart(humiCtx, {
       y: {
         title: {
           display: true,
-          text: "Humidity (%)",
+          text: "Humidity (% RH)",
           font: { size: 20, weight: "bold" },
           color: "#333",
         },
