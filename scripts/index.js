@@ -33,8 +33,18 @@ const liveHumi1 = document.getElementById("humi1");
 const liveHumi2 = document.getElementById("humi2");
 const liveHumi3 = document.getElementById("humi3");
 
+// Track last update timestamps for each device (from device timestamp, not browser time)
+const lastUpdate = {
+  "DL-01": 0,
+  "DL-02": 0,
+  "DL-03": 0,
+};
+
+const OFFLINE_TIMEOUT = 30000; // 60 seconds without new data = offline
+
 // Call Fetch Function for Live Data Collection
-function fetchLiveDataDL(apiUrl, tempElement, humiElement) {
+// ------------------ FETCH FUNCTION ------------------
+function fetchLiveDataDL(apiUrl, tempElement, humiElement, deviceId) {
   fetch(apiUrl, {
     method: "GET",
     headers: {
@@ -44,24 +54,72 @@ function fetchLiveDataDL(apiUrl, tempElement, humiElement) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      const temperature = data.temperature || "--";
-      const humidity = data.humidity || "--";
-      tempElement.textContent = temperature;
-      humiElement.textContent = humidity;
+      //console.log("API Response:", data);
+
+      const temperature = data.temperature ?? "--";
+      const humidity = data.humidity ?? "--";
+
+      // Only update UI if values exist
+      if (temperature !== "--" && humidity !== "--") {
+        tempElement.textContent = temperature;
+        humiElement.textContent = humidity;
+
+        // ✅ Use device timestamp, not browser time
+        if (data.updatedAt) {
+          const deviceTime = new Date(data.updatedAt).getTime();
+          lastUpdate[deviceId] = deviceTime;
+        }
+      }
     })
-    .catch((err) => console.log("Fetch error:", err));
+    .catch((err) => {
+      console.error(`Fetch error for ${deviceId}:`, err);
+    });
+}
+// Check device status based on last update time
+// ------------------ STATUS CHECK FUNCTION ------------------
+function checkDeviceStatus() {
+  const now = Date.now();
+
+  Object.keys(lastUpdate).forEach((deviceId) => {
+    const deviceCard = document.getElementById(deviceId);
+    if (!deviceCard) {
+      console.warn(`No card found for deviceId: ${deviceId}`);
+      return;
+    }
+
+    const statusText = deviceCard.querySelector(".status");
+    if (!statusText) {
+      console.warn(`No .status element inside card for ${deviceId}`);
+      return;
+    }
+
+    const timeSinceUpdate = now - lastUpdate[deviceId];
+    //console.log(deviceId, lastUpdate[deviceId], timeSinceUpdate);
+
+    if (timeSinceUpdate > OFFLINE_TIMEOUT) {
+      // OFFLINE
+      deviceCard.classList.remove("online");
+      deviceCard.classList.add("offline");
+      statusText.textContent = "Offline";
+    } else {
+      // ONLINE
+      deviceCard.classList.remove("offline");
+      deviceCard.classList.add("online");
+      statusText.textContent = "Online";
+    }
+  });
 }
 
 // Initial + periodic fetch for Live Data
 function updateAllLive() {
-  fetchLiveDataDL(API_URL_LIVE_DL1, liveTemp1, liveHumi1);
-  fetchLiveDataDL(API_URL_LIVE_DL2, liveTemp2, liveHumi2);
-  fetchLiveDataDL(API_URL_LIVE_DL3, liveTemp3, liveHumi3);
+  fetchLiveDataDL(API_URL_LIVE_DL1, liveTemp1, liveHumi1, "DL-01");
+  fetchLiveDataDL(API_URL_LIVE_DL2, liveTemp2, liveHumi2, "DL-02");
+  fetchLiveDataDL(API_URL_LIVE_DL3, liveTemp3, liveHumi3, "DL-03");
 }
 
 updateAllLive();
 setInterval(updateAllLive, 5000);
+setInterval(checkDeviceStatus, 5000); // check status every 5s
 
 // End of Live Data Fetching
 
