@@ -344,7 +344,7 @@ const humiChart = new Chart(humiCtx, {
         },
         ticks: {
           maxRotation: 60,
-          minRotation: 30,
+          minRotation: 40,
           color: "#555",
         },
         grid: {
@@ -472,7 +472,7 @@ const tempChart = new Chart(tempCtx, {
           font: { size: 18, weight: "bold" },
           color: "#333",
         },
-        ticks: { maxRotation: 60, minRotation: 30, color: "#555" },
+        ticks: { maxRotation: 60, minRotation: 40, color: "#555" },
         grid: {
           drawBorder: true,
           borderColor: "#aaa",
