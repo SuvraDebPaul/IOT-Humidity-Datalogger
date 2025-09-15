@@ -48,7 +48,9 @@ const loadDeviceSettings = (deviceId) => {
     .then((response) => response.json())
     .then((data) => {
       // Convert seconds to minutes for display
-      const intervalMinutes = Math.round((data.loggingInterval || 60) / 60);
+      const intervalMinutes = Math.round(
+        (data.loggingInterval || 60000) / 60000
+      );
       samplingIntervalInput.value = intervalMinutes;
     })
     .catch((error) => {
@@ -83,7 +85,7 @@ btnSaveSettings.addEventListener("click", (e) => {
   }
 
   // Convert minutes to seconds before sending to API
-  const intervalSeconds = intervalMinutes * 60;
+  const intervalSeconds = intervalMinutes * 60 * 1000; // milliseconds
 
   const apiUrl = `https://iot-humidity-datalogger.onrender.com/api/config/${deviceId}`;
 
